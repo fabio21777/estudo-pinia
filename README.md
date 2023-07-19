@@ -11,8 +11,50 @@ Para solucionar o problema, você pode ter um único modal adicionado ao "App.vu
 No entanto, essa solução ainda não é ideal, pois para projetos mais complexos é comum que haja vários níveis de componentes, como filho (nível 1), neto (nível 2), bisneto (nível 3), etc. Nesses casos, ocorreria a necessidade de emitir o evento com a minha prop até o componente raiz.![Estrutura dos componentes](img-readme/arvore-even.svg)
 
 Você pode utilizar um gerenciador de estado, para que os componentes que precisem modificar os estados do modal, setem o valor diretamente pelo Pinia, tratando diretamente no App.vue, que é o componente raiz do projeto. Utilizando gerenciador de estado, o código fica mais claro e mais fácil de manter.
+![gerenciador de estado](img-readme/gerenciado-de-estado.svg)
 
 Para esse caso, você pode criar um gerenciador de modais modalHandle, que será um componente Vue responsável por gerenciar qual modal está ativo no momento. Por padrão, o valor null representará que não existe nenhum modal ativo no momento.
 
 ### Instalçao pinia
 instalando pinia, se vc utilizar o comando ```sh npm create vue@3```, na instalação do projeto vue vc pode escolher utilizar o pinia, instalações padrões do vue não instalam pinia por padrão comando para instalação ```sh npm install pinia```
+
+### Instalação elemente ui (opcional)
+```shell 
+npm install element-plus --save
+```
+
+#### Instalando import sob demanda
+
+Para instalar as dependências necessárias para importar os componentes do Element Plus sob demanda, execute o seguinte comando:
+
+```shell 
+npm install -D unplugin-vue-components unplugin-auto-import
+```
+
+Após a instalação, adicione o seguinte código ao arquivo vite.config.ts:
+
+```typescript 
+// vite.config.ts
+import { defineConfig } from 'vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+export default defineConfig({
+  // ...
+  plugins: [
+    // ...
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+  ],
+})
+
+link para instalação elemente plus e import sob demanda
+-https://element-plus.org/en-US/guide/installation.html
+-https://element-plus.org/en-US/guide/quickstart.html
+
+``` 
